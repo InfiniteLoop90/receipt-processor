@@ -22,4 +22,11 @@ public class Item {
     public void setPrice (BigDecimal price) {
         this.price = price;
     }
+
+    public static Item of (String shortDescription, BigDecimal price) {
+        Item item = new Item();
+        item.setShortDescription(shortDescription);
+        item.setPrice(price);
+        return item;
+    }
 }
