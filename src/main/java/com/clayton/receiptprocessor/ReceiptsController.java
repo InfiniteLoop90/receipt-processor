@@ -27,10 +27,6 @@ public class ReceiptsController {
      */
     @PostMapping("/process")
     public StoredReceiptResponse storeReceipt (@RequestBody Receipt receipt) {
-        if (receipt == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Receipt must not be null");
-        }
-
         UUID newId = UUID.randomUUID();
         ReceiptProcessorApplication.receiptStore.put(newId, receipt);
         return StoredReceiptResponse.of(newId);
