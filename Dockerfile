@@ -13,7 +13,7 @@ FROM maven:3.9-eclipse-temurin-17 AS build
 RUN apt-get --assume-yes update && apt-get --assume-yes upgrade
 COPY src /home/app/src
 COPY pom.xml /home/app
-RUN mvn -f /home/app/pom.xml clean package
+RUN mvn --file /home/app/pom.xml clean package
 
 #
 # Package stage
