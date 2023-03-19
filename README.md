@@ -39,5 +39,5 @@ Dockerfile creation to try out the Fetch  coding challenge
       }
       ```
      and note the `id` in the JSON response.
-  * `GET` to `http://localhost:8080/receipts/{id}/points` (Replacing `{id}` with the ID of a receipt returned from the
-    `POST` response above)
+   * `GET` to `http://localhost:8080/receipts/{id}/points` (Replacing `{id}` with the ID of a receipt returned from the
+     `POST` response above)
