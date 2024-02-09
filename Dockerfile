@@ -8,7 +8,7 @@
 #
 # Build stage
 #
-FROM maven:3.9-eclipse-temurin-17 AS build
+FROM maven:3.9-eclipse-temurin-21 AS build
 # Do OS package updates first
 RUN apt-get --assume-yes update && apt-get --assume-yes upgrade
 COPY src /home/app/src
@@ -18,7 +18,7 @@ RUN mvn --file /home/app/pom.xml clean package
 #
 # Package stage
 #
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:21-jdk
 # Do OS package updates first
 RUN apt-get --assume-yes update && apt-get --assume-yes upgrade
 COPY --from=build /home/app/target/receipt-processor-0.0.1-SNAPSHOT.jar /usr/local/lib/app.jar
