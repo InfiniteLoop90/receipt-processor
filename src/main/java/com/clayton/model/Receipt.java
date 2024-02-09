@@ -66,11 +66,11 @@ public class Receipt {
     public long getPoints () {
         return getAlphaNumericPoints()
             + getRoundDollarTotalPoints()
-            + getTotalIsMultipleOfPoint25()
+            + getTotalIsMultipleOfPoint25Points()
             + getEveryTwoItemPoints()
             + getTrimmedDescriptionLengthMultipleOfThreePoints()
             + getOddPurchaseDatePoints()
-            + getTimeOfPurchaseAfterTwoPmAndBeforeFourPm();
+            + getTimeOfPurchaseAfterTwoPmAndBeforeFourPmPoints();
     }
 
     private long getAlphaNumericPoints () {
@@ -86,7 +86,7 @@ public class Receipt {
         return 0L;
     }
 
-    private long getTotalIsMultipleOfPoint25 () {
+    private long getTotalIsMultipleOfPoint25Points() {
         // See https://stackoverflow.com/a/23330029
         if (total.remainder(ZERO_POINT_TWENTY_FIVE).compareTo(BigDecimal.ZERO) == 0) {
             return 25L;
@@ -119,7 +119,7 @@ public class Receipt {
         return 0L;
     }
 
-    private long getTimeOfPurchaseAfterTwoPmAndBeforeFourPm () {
+    private long getTimeOfPurchaseAfterTwoPmAndBeforeFourPmPoints() {
         if (purchaseTime.isAfter(TWO_PM) && purchaseTime.isBefore(FOUR_PM)) {
             return 10L;
         }
