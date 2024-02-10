@@ -40,24 +40,23 @@ class ReceiptsControllerTest {
         receipt.setPurchaseDate(LocalDate.of(2022, Month.JANUARY, 1));
         receipt.setPurchaseTime(LocalTime.of(13, 1));
         receipt.setItems(
-            List.of(
-                Item.of(
-                    "Mountain Dew 12PK",
+            List.of(new Item(
+                "Mountain Dew 12PK",
                     new BigDecimal("6.49")
                 ),
-                Item.of(
+                new Item(
                     "Emils Cheese Pizza",
                     new BigDecimal("12.25")
                 ),
-                Item.of(
+                new Item(
                     "Knorr Creamy Chicken",
                     new BigDecimal("1.26")
                 ),
-                Item.of(
+                new Item(
                     "Doritos Nacho Cheese",
                     new BigDecimal("3.35")
                 ),
-                Item.of(
+                new Item(
                     "   Klarbrunn 12-PK 12 FL OZ  ",
                     new BigDecimal("12.00")
                 )
@@ -84,19 +83,19 @@ class ReceiptsControllerTest {
         receipt.setPurchaseTime(LocalTime.of(14, 33));
         receipt.setItems(
             List.of(
-                Item.of(
+                new Item(
                     "Gatorade",
                     new BigDecimal("2.25")
                 ),
-                Item.of(
+                new Item(
                     "Gatorade",
                     new BigDecimal("2.25")
                 ),
-                Item.of(
+                new Item(
                     "Gatorade",
                     new BigDecimal("2.25")
                 ),
-                Item.of(
+                new Item(
                     "Gatorade",
                     new BigDecimal("2.25")
                 )
