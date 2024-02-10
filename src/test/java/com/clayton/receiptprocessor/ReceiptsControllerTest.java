@@ -65,12 +65,12 @@ class ReceiptsControllerTest {
 
         HttpEntity<Receipt> postRequest = new HttpEntity<>(receipt);
         StoredReceiptResponse postResponse = this.restTemplate.postForObject(postURL, postRequest, StoredReceiptResponse.class);
-        UUID responseUuid = postResponse.getId();
+        UUID responseUuid = postResponse.id();
         assertThat(responseUuid).isNotNull();
 
         String getURL = createGetReceiptPointsUrl(port, responseUuid);
         GetPointsResponse getResponse = this.restTemplate.getForObject(getURL, GetPointsResponse.class);
-        assertThat(getResponse.getPoints()).isEqualTo(28L);
+        assertThat(getResponse.points()).isEqualTo(28L);
     }
 
     @Test
@@ -102,12 +102,12 @@ class ReceiptsControllerTest {
 
         HttpEntity<Receipt> postRequest = new HttpEntity<>(receipt);
         StoredReceiptResponse postResponse = this.restTemplate.postForObject(postURL, postRequest, StoredReceiptResponse.class);
-        UUID responseUuid = postResponse.getId();
+        UUID responseUuid = postResponse.id();
         assertThat(responseUuid).isNotNull();
 
         String getURL = createGetReceiptPointsUrl(port, responseUuid);
         GetPointsResponse getResponse = this.restTemplate.getForObject(getURL, GetPointsResponse.class);
-        assertThat(getResponse.getPoints()).isEqualTo(109L);
+        assertThat(getResponse.points()).isEqualTo(109L);
     }
 
     private String createPostReceiptUrl (int port) {

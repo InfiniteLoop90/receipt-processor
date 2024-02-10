@@ -29,7 +29,7 @@ public class ReceiptsController {
     public StoredReceiptResponse storeReceipt (@RequestBody Receipt receipt) {
         UUID newId = UUID.randomUUID();
         ReceiptProcessorApplication.receiptStore.put(newId, receipt);
-        return StoredReceiptResponse.of(newId);
+        return new StoredReceiptResponse(newId);
     }
 
     /**
@@ -46,6 +46,6 @@ public class ReceiptsController {
                 String.format("Receipt with ID %s does not exist", id.toString())
             );
         }
-        return GetPointsResponse.of(receipt.getPoints());
+        return new GetPointsResponse(receipt.getPoints());
     }
 }
