@@ -25,6 +25,16 @@ FROM eclipse-temurin:21-jdk
 RUN apt-get --assume-yes update && apt-get --assume-yes upgrade \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+# Copy the jar
 COPY --from=build /home/app/target/receipt-processor-0.0.1-SNAPSHOT.jar /usr/local/lib/app.jar
+# Create the lower privileged user
+ARG USERNAME=nonroot
+ARG USER_UID=1000
+ARG USER_GID=${USER_UID}
+RUN groupadd --gid ${USER_GID} ${USERNAME} \
+    && useradd --no-log-init --uid ${USER_UID} --gid ${USER_GID} --create-home ${USERNAME}
+# Switch to the lower privileged user
+USER ${USERNAME}
+# Expose the necessary port(s) and start it
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/usr/local/lib/app.jar"]
