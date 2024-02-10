@@ -95,8 +95,7 @@ public class Receipt {
     }
 
     private long getEveryTwoItemPoints () {
-        // In Java, integer division truncates the remainder
-        return (items.size() / 2) * 5L;
+        return Math.multiplyExact(Math.divideExact(items.size(), 2),  5L);
     }
 
     private long getTrimmedDescriptionLengthMultipleOfThreePoints () {
