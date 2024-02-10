@@ -35,13 +35,12 @@ class ReceiptsControllerTest {
     @Test
     void postAndResponseOfFirstExampleShouldReturnExpectedPoints () {
         String postURL = createPostReceiptUrl(port);
-        Receipt receipt = new Receipt();
-        receipt.setRetailer("Target");
-        receipt.setPurchaseDate(LocalDate.of(2022, Month.JANUARY, 1));
-        receipt.setPurchaseTime(LocalTime.of(13, 1));
-        receipt.setItems(
+        Receipt receipt = new Receipt(
+            "Target",
+            LocalDate.of(2022, Month.JANUARY, 1),
+            LocalTime.of(13, 1),
             List.of(new Item(
-                "Mountain Dew 12PK",
+                    "Mountain Dew 12PK",
                     new BigDecimal("6.49")
                 ),
                 new Item(
@@ -60,9 +59,9 @@ class ReceiptsControllerTest {
                     "   Klarbrunn 12-PK 12 FL OZ  ",
                     new BigDecimal("12.00")
                 )
-            )
+            ),
+            new BigDecimal("35.35")
         );
-        receipt.setTotal(new BigDecimal("35.35"));
 
         HttpEntity<Receipt> postRequest = new HttpEntity<>(receipt);
         StoredReceiptResponse postResponse = this.restTemplate.postForObject(postURL, postRequest, StoredReceiptResponse.class);
@@ -77,11 +76,9 @@ class ReceiptsControllerTest {
     @Test
     void postAndResponseOfSecondExampleShouldReturnExpectedPoints () {
         String postURL = createPostReceiptUrl(port);
-        Receipt receipt = new Receipt();
-        receipt.setRetailer("M&M Corner Market");
-        receipt.setPurchaseDate(LocalDate.of(2022, Month.MARCH, 20));
-        receipt.setPurchaseTime(LocalTime.of(14, 33));
-        receipt.setItems(
+        Receipt receipt = new Receipt("M&M Corner Market",
+            LocalDate.of(2022, Month.MARCH, 20),
+            LocalTime.of(14, 33),
             List.of(
                 new Item(
                     "Gatorade",
@@ -99,9 +96,9 @@ class ReceiptsControllerTest {
                     "Gatorade",
                     new BigDecimal("2.25")
                 )
-            )
+            ),
+            new BigDecimal("9.00")
         );
-        receipt.setTotal(new BigDecimal("9.00"));
 
         HttpEntity<Receipt> postRequest = new HttpEntity<>(receipt);
         StoredReceiptResponse postResponse = this.restTemplate.postForObject(postURL, postRequest, StoredReceiptResponse.class);
@@ -120,6 +117,5 @@ class ReceiptsControllerTest {
     private String createGetReceiptPointsUrl (int port, UUID id) {
         return LOCALHOST_HOST_WITH_PORT_COLON + port + RECEIPTS_PATH + "/" + id + POINTS_PATH;
     }
-
 
 }
