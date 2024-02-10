@@ -10,7 +10,9 @@
 #
 FROM maven:3.9-eclipse-temurin-21 AS build
 # Do OS package updates first
-RUN apt-get --assume-yes update && apt-get --assume-yes upgrade
+RUN apt-get --assume-yes update && apt-get --assume-yes upgrade \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 COPY src /home/app/src
 COPY pom.xml /home/app
 RUN mvn --file /home/app/pom.xml clean package
@@ -20,7 +22,9 @@ RUN mvn --file /home/app/pom.xml clean package
 #
 FROM eclipse-temurin:21-jdk
 # Do OS package updates first
-RUN apt-get --assume-yes update && apt-get --assume-yes upgrade
+RUN apt-get --assume-yes update && apt-get --assume-yes upgrade \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 COPY --from=build /home/app/target/receipt-processor-0.0.1-SNAPSHOT.jar /usr/local/lib/app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/usr/local/lib/app.jar"]
