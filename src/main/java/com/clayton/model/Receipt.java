@@ -40,7 +40,7 @@ public record Receipt (String retailer, LocalDate purchaseDate, LocalTime purcha
         return 0L;
     }
 
-    private long getTotalIsMultipleOfPoint25Points() {
+    private long getTotalIsMultipleOfPoint25Points () {
         // See https://stackoverflow.com/a/23330029
         if (total.remainder(ZERO_POINT_TWENTY_FIVE).compareTo(BigDecimal.ZERO) == 0) {
             return 25L;
@@ -56,27 +56,39 @@ public record Receipt (String retailer, LocalDate purchaseDate, LocalTime purcha
     private long getTrimmedDescriptionLengthMultipleOfThreePoints () {
         long summedPoints = 0L;
         for (Item item : items) {
-            // See https://stackoverflow.com/a/8023671
-            if (item.shortDescription().trim().length() % 3 == 0) {
-                // See https://stackoverflow.com/a/26102434
-                summedPoints += item.price().multiply(ZERO_POINT_TWO).setScale(0, RoundingMode.UP).longValue();
+            if (isMultipleOfThree(item.shortDescription().trim().length())) {
+                summedPoints += roundUpAsLong(item.price().multiply(ZERO_POINT_TWO));
             }
         }
         return summedPoints;
     }
 
     private long getOddPurchaseDatePoints () {
-        // See https://stackoverflow.com/a/7342251
-        if (purchaseDate.getDayOfMonth() % 2 != 0) {
+        if (isOdd(purchaseDate.getDayOfMonth())) {
             return 6L;
         }
         return 0L;
     }
 
-    private long getTimeOfPurchaseAfterTwoPmAndBeforeFourPmPoints() {
+    private long getTimeOfPurchaseAfterTwoPmAndBeforeFourPmPoints () {
         if (purchaseTime.isAfter(TWO_PM) && purchaseTime.isBefore(FOUR_PM)) {
             return 10L;
         }
         return 0L;
+    }
+
+    private boolean isMultipleOfThree (int num) {
+        // See https://stackoverflow.com/a/8023671
+        return num % 3 == 0;
+    }
+
+    private boolean isOdd (int num) {
+        // See https://stackoverflow.com/a/7342251
+        return num % 2 != 0;
+    }
+
+    private long roundUpAsLong (BigDecimal num) {
+        // See https://stackoverflow.com/a/26102434
+        return num.setScale(0, RoundingMode.UP).longValue();
     }
 }
