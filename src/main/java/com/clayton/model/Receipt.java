@@ -49,7 +49,8 @@ public record Receipt (String retailer, LocalDate purchaseDate, LocalTime purcha
     }
 
     private long getEveryTwoItemPoints () {
-        return Math.multiplyExact(Math.divideExact(items.size(), 2),  5L);
+        // In Java, integer division truncates the remainder
+        return Math.multiplyExact(5L, items.size() / 2);
     }
 
     private long getTrimmedDescriptionLengthMultipleOfThreePoints () {
