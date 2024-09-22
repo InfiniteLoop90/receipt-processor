@@ -56,7 +56,7 @@ public record Receipt (String retailer, LocalDate purchaseDate, LocalTime purcha
         long summedPoints = 0L;
         for (Item item : items) {
             // See https://stackoverflow.com/a/8023671
-            if (item.shortDescription().trim().chars().count() % 3 == 0) {
+            if (item.shortDescription().trim().length() % 3 == 0) {
                 // See https://stackoverflow.com/a/26102434
                 summedPoints += item.price().multiply(ZERO_POINT_TWO).setScale(0, RoundingMode.UP).longValue();
             }
