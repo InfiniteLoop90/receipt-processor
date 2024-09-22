@@ -43,8 +43,7 @@ public record Receipt (String retailer, LocalDate purchaseDate, LocalTime purcha
      * @return the number of points for given rule
      */
     private long getRoundDollarTotalPoints () {
-        // See https://stackoverflow.com/a/12748321
-        if (total.stripTrailingZeros().scale() <= 0) {
+        if (isRoundNumber(total)) {
             return 50L;
         }
         return 0L;
@@ -56,8 +55,7 @@ public record Receipt (String retailer, LocalDate purchaseDate, LocalTime purcha
      * @return the number of points for given rule
      */
     private long getTotalIsMultipleOfPoint25Points () {
-        // See https://stackoverflow.com/a/23330029
-        if (total.remainder(ZERO_POINT_TWENTY_FIVE).compareTo(BigDecimal.ZERO) == 0) {
+        if (isMultipleOfZeroPointTwentyFive(total)) {
             return 25L;
         }
         return 0L;
@@ -111,6 +109,16 @@ public record Receipt (String retailer, LocalDate purchaseDate, LocalTime purcha
             return 10L;
         }
         return 0L;
+    }
+
+    private boolean isRoundNumber (BigDecimal num) {
+        // See https://stackoverflow.com/a/12748321
+        return num.stripTrailingZeros().scale() <= 0;
+    }
+
+    private boolean isMultipleOfZeroPointTwentyFive (BigDecimal num) {
+        // See https://stackoverflow.com/a/23330029
+        return num.remainder(ZERO_POINT_TWENTY_FIVE).compareTo(BigDecimal.ZERO) == 0;
     }
 
     private boolean isMultipleOfThree (int num) {
