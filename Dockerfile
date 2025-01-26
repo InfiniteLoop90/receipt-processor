@@ -26,7 +26,7 @@ RUN apt-get --assume-yes update && apt-get --assume-yes upgrade \
     && apt-get clean \
     && rm --recursive --force /var/lib/apt/lists/*
 # Copy the jar
-COPY --from=build /home/app/target/receipt-processor-0.0.1-SNAPSHOT.jar /usr/local/lib/app.jar
+COPY --from=build /home/app/target/receipt-processor.jar /usr/local/lib/app.jar
 # Create the lower privileged user
 ARG USERNAME=nonroot
 ARG USER_UID=1000
