@@ -29,7 +29,7 @@ RUN apt-get --assume-yes update && apt-get --assume-yes upgrade \
 COPY --from=build /home/app/target/receipt-processor.jar /usr/local/lib/app.jar
 # Create the lower privileged user
 ARG USERNAME=nonroot
-ARG USER_UID=1000
+ARG USER_UID=1001
 ARG USER_GID=${USER_UID}
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --no-log-init --uid ${USER_UID} --gid ${USER_GID} --create-home ${USERNAME}
