@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Receipt Processor Home Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h1>Receipt Processor Home Page</h1>
+        <p th:text="'Current timestamp: ' + ${currentTimestamp}"></p>
+        <p th:text="'Spring version: ' + ${springVersion}"></p>
+        <p th:text="'Spring Boot version: ' + ${springBootVersion}"></p>
+        <p th:text="'Java runtime version: ' + ${@environment.getProperty('java.runtime.version')}"></p>
+        <p th:text="'Java JVM vendor: ' + ${@environment.getProperty('java.vm.vendor')}"></p>
+        <p th:text="'Java vendor version: ' + ${@environment.getProperty('java.vendor.version')}"></p>
+        <p th:text="'OS name: ' + ${@environment.getProperty('os.name')}"></p>
+    </body>
+</html>
