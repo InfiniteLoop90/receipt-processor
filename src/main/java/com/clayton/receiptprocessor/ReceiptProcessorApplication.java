@@ -12,6 +12,7 @@ public class ReceiptProcessorApplication {
 
     public static final Map<UUID, Receipt> receiptStore = new HashMap<>();
 
+    // Even though Java 25 doesn't need the public modifier
     public static void main(String[] args) {
         SpringApplication.run(ReceiptProcessorApplication.class, args);
     }

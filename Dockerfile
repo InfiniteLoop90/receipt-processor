@@ -8,7 +8,7 @@
 #
 # Build stage
 #
-FROM maven:3.9-eclipse-temurin-21 AS build
+FROM maven:3.9-eclipse-temurin-25 AS build
 # Do OS package updates first
 RUN apt-get --assume-yes update && apt-get --assume-yes upgrade \
     && apt-get clean \
@@ -20,7 +20,7 @@ RUN mvn --file /home/app/pom.xml clean package
 #
 # Package stage
 #
-FROM eclipse-temurin:21-jdk
+FROM eclipse-temurin:25-jdk
 # Do OS package updates first
 RUN apt-get --assume-yes update && apt-get --assume-yes upgrade \
     && apt-get clean \
