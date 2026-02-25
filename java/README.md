@@ -1,11 +1,10 @@
-# Receipt Processor Challenge
+# Receipt Processor Challenge (Java + Spring Boot Implementation)
 
 ## What is it?
 
-This is a Spring Boot project created via <https://start.spring.io/> with Spring Web and took some steps from
+This is a Java + Spring Boot project created via <https://start.spring.io/> with Spring Web and took some steps from
 <https://spring.io/guides/topicals/spring-boot-docker/> and from <https://stackoverflow.com/a/27768965> for the
-Dockerfile creation to try out the Fetch  coding challenge
-[here](https://github.com/fetch-rewards/receipt-processor-challenge).
+Dockerfile creation.
 
 ## Getting Started
 
