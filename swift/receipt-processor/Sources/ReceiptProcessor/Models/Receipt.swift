@@ -6,4 +6,8 @@ struct Receipt: Content {
     let purchaseDate: String
     let purchaseTime: String
     let items: [Item]
+
+    func getPoints() -> Int {
+        return 42
+    }
 }

@@ -3,27 +3,28 @@ import Vapor
 struct ReceiptsController: RouteCollection {
 
     func boot(routes: RoutesBuilder) throws {
-        let receipts = routes.grouped("receipts", "process")
-        receipts.post(use: create)
+        let receipts = routes.grouped("receipts")
 
-        receipts.group(":id", "points") { receipt in
-            receipt.get(use: show)
+        receipts.grouped("process").post(use: processReceipt)
+
+        receipts.group(":id") { receipt in
+            receipt.grouped("points").get(use: getReceiptPoints)
         }
     }
 
-    func create(req: Request) async throws -> StoredReceiptResponse {
+    func processReceipt(req: Request) async throws -> StoredReceiptResponse {
         let receipt = try req.content.decode(Receipt.self)
         let newUuid = UUID()
         req.application.receiptStore?.receipts.updateValue(receipt, forKey: newUuid)
         return StoredReceiptResponse(id: newUuid)
     }
 
-    func show(req: Request) async throws -> Receipt {
+    func getReceiptPoints(req: Request) async throws -> GetPointsResponse {
         guard let idParam = req.parameters.get("id"), let id = UUID(uuidString: idParam) else {
-            throw Abort(.badRequest, reason: "Missing or invalid receipt id")
+            throw Abort(.badRequest, reason: "Missing or invalid receipt ID")
         }
         if let receipt = req.application.receiptStore?.receipts[id] {
-            return receipt
+            return GetPointsResponse(points: receipt.getPoints())
         } else {
             throw Abort(.notFound)
         }
