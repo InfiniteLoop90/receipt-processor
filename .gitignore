@@ -1,14 +1,4 @@
-#################
 # General stuff
-#################
+
 # macOS
 .DS_Store
-
-#################
-# Java stuff
-#################
-# IDE Project files
-java/**/.idea
-java/**/*.iml
-# Maven files
-java/target/
