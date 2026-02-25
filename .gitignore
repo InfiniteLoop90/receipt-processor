@@ -1,6 +1,14 @@
-# IDE Project files
-/**/.idea
-/**/*.iml
+#################
+# General stuff
+#################
+# macOS
+.DS_Store
 
+#################
+# Java stuff
+#################
+# IDE Project files
+java/**/.idea
+java/**/*.iml
 # Maven files
-target/
+java/target/
