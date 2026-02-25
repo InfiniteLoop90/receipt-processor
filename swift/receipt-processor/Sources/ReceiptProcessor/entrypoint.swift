@@ -29,3 +29,14 @@ enum Entrypoint {
         try await app.asyncShutdown()
     }
 }
+
+extension Application {
+    var receiptStore: ReceiptStore? {
+        get {
+            self.storage[ReceiptStoreKey.self]
+        }
+        set {
+            self.storage[ReceiptStoreKey.self] = newValue
+        }
+    }
+}
