@@ -2,7 +2,7 @@ import Vapor
 
 struct ReceiptsController: RouteCollection {
 
-    func boot(routes: RoutesBuilder) throws {
+    func boot(routes: any RoutesBuilder) throws {
         let receipts = routes.grouped("receipts")
 
         receipts.grouped("process").post(use: processReceipt)
