@@ -62,4 +62,49 @@ struct ReceiptProcessorTests {
             })
         }
     }
+
+    @Test("Test Second Example")
+    func postAndResponseOfSecondExampleShouldReturnExpectedPoints() async throws {
+        let newReceipt = Receipt(
+            retailer: "M&M Corner Market",
+            purchaseDate: "2022-03-20",
+            purchaseTime: "14:33",
+            items: [
+                Item(
+                    shortDescription: "Gatorade",
+                    price: Decimal(string: "2.25")!
+                ),
+                Item(
+                    shortDescription: "Gatorade",
+                    price: Decimal(string: "2.25")!
+                ),
+                Item(
+                    shortDescription: "Gatorade",
+                    price: Decimal(string: "2.25")!
+                ),
+                Item(
+                    shortDescription: "Gatorade",
+                    price: Decimal(string: "2.25")!
+                )
+            ],
+            total: Decimal(string: "9.00")!
+        )
+
+        try await withApp(configure: configure) { app in
+            try await app.testing().test(.POST, "receipts/process", beforeRequest: { req1 in
+                try? req1.content.encode(newReceipt)
+            }, afterResponse: { res1 async throws in
+                #expect(res1.status == .ok)
+                let storedReceiptResponse = try res1.content.decode(StoredReceiptResponse.self)
+                #expect(storedReceiptResponse.id.isEmpty == false)
+
+
+                try await app.testing().test(.GET, "receipts/\(storedReceiptResponse.id)/points", afterResponse: { res2 async throws in
+                    #expect(res2.status == .ok)
+                    let pointsResponse = try res2.content.decode(GetPointsResponse.self)
+                    #expect(pointsResponse.points == 109)
+                })
+            })
+        }
+    }
 }

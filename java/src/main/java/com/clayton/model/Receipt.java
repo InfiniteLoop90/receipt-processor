@@ -18,13 +18,14 @@ public record Receipt (String retailer, LocalDate purchaseDate, LocalTime purcha
      * @return the total number of points for the receipt
      */
     public long getPoints () {
-        return getAlphaNumericPoints()
-            + getRoundDollarTotalPoints()
-            + getTotalIsMultipleOfPoint25Points()
-            + getEveryTwoItemPoints()
-            + getTrimmedDescriptionLengthMultipleOfThreePoints()
-            + getOddPurchaseDatePoints()
-            + getTimeOfPurchaseAfterTwoPmAndBeforeFourPmPoints();
+        long a = getAlphaNumericPoints();
+        long b = getRoundDollarTotalPoints();
+        long c = getTotalIsMultipleOfPoint25Points();
+        long d = getEveryTwoItemPoints();
+        long e = getTrimmedDescriptionLengthMultipleOfThreePoints();
+        long f = getOddPurchaseDatePoints();
+        long g = getTimeOfPurchaseAfterTwoPmAndBeforeFourPmPoints();
+        return a + b + c + d + e + f + g;
     }
 
     /**

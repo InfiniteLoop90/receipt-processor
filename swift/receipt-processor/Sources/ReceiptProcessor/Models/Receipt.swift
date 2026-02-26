@@ -9,13 +9,14 @@ struct Receipt: Content {
     let total: Decimal
 
     func getPoints() -> Int {
-        return getAlphaNumericPoints()
-        + getRoundDollarTotalPoints()
-        + getTotalIsMultipleOfPoint25Points()
-        + getEveryTwoItemPoints()
-        + getTrimmedDescriptionLengthMultipleOfThreePoints()
-        + getOddPurchaseDatePoints()
-        + getTimeOfPurchaseAfterTwoPmAndBeforeFourPmPoints()
+        let a = getAlphaNumericPoints()
+        let b = getRoundDollarTotalPoints()
+        let c = getTotalIsMultipleOfPoint25Points()
+        let d = getEveryTwoItemPoints()
+        let e = getTrimmedDescriptionLengthMultipleOfThreePoints()
+        let f = getOddPurchaseDatePoints()
+        let g = getTimeOfPurchaseAfterTwoPmAndBeforeFourPmPoints()
+        return a + b + c + d + e + f + g
     }
 
     // One point for every alphanumeric character in the retailer name.
@@ -95,7 +96,6 @@ struct Receipt: Content {
     private func getOddPurchaseDatePoints() -> Int {
         let df = DateFormatter()
         df.locale = Locale(identifier: "en_US_POSIX")
-        df.timeZone = TimeZone(secondsFromGMT: 0)
         df.dateFormat = "yyyy-MM-dd"
 
         if let date = df.date(from: purchaseDate) {
@@ -125,12 +125,15 @@ struct Receipt: Content {
         }
 
         let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: purchaseDateVal)
+        let hours = calendar.component(.hour, from: purchaseDateVal)
+        let minutes = calendar.component(.minute, from: purchaseDateVal)
+        let minutesInHour = 60
+        let totalMinutes = (hours * minutesInHour) + minutes
+        let twoPmInMinutes = 14 * minutesInHour
+        let fourPmInMinutes = 16 * minutesInHour
 
-        // After 2 PM (14:00) and before 4 PM (16:00)
-        // Inclusive start (14:00) and exclusive end (16:00) means 14:00-15:59
-        if hour >= 14 && hour < 16 {
-            return 100
+        if totalMinutes > twoPmInMinutes && totalMinutes < fourPmInMinutes {
+            return 10
         } else {
             return 0
         }
