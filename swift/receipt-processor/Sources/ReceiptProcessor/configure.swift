@@ -7,7 +7,7 @@ public func configure(_ app: Application) async throws {
     // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
     app.views.use(.leaf)
-    
+
     // Using this as a "global" dictionary to store the receipts. Initialized to an empty dictionary.
     app.receiptStore = .init(receipts: [:])
 

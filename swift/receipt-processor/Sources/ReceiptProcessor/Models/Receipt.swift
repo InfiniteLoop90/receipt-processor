@@ -30,7 +30,7 @@ struct Receipt: Content {
         var roundedValue = Decimal()
         NSDecimalRound(&roundedValue, &decimalValue, 0, .plain) // Round to 0 scale (whole number)
         let isRounded = decimalValue == roundedValue
-        if (isRounded) {
+        if isRounded {
             return 50
         } else {
             return 0
@@ -57,7 +57,7 @@ struct Receipt: Content {
 
         return (cents % 25 == 0) ? 25 : 0
     }
-    
+
     // 5 points for every two items on the receipt.
     private func getEveryTwoItemPoints() -> Int {
         let pairs = items.count / 2
