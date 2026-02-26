@@ -24,8 +24,25 @@ struct ReceiptProcessorTests {
                 Item(
                     shortDescription: "Mountain Dew 12PK",
                     price: Decimal(string: "6.49")!
+                ),
+                Item(
+                    shortDescription: "Emils Cheese Pizza",
+                    price: Decimal(string: "12.25")!
+                ),
+                Item(
+                    shortDescription: "Knorr Creamy Chicken",
+                    price: Decimal(string: "1.26")!
+                ),
+                Item(
+                    shortDescription: "Doritos Nacho Cheese",
+                    price: Decimal(string: "3.35")!
+                ),
+                Item(
+                    shortDescription: "   Klarbrunn 12-PK 12 FL OZ  ",
+                    price: Decimal(string: "12.00")!
                 )
-            ]
+            ],
+            total: "35.35"
         )
 
         try await withApp(configure: configure) { app in
