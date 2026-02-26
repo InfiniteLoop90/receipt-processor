@@ -14,8 +14,8 @@ struct ReceiptProcessorTests {
         }
     }
 
-    @Test("Test Basic POST Example")
-    func basicPostExample() async throws {
+    @Test("Test First Example")
+    func postAndResponseOfFirstExampleShouldReturnExpectedPoints() async throws {
         let newReceipt = Receipt(
             retailer: "Target",
             purchaseDate: "2022-01-01",
@@ -42,17 +42,23 @@ struct ReceiptProcessorTests {
                     price: Decimal(string: "12.00")!
                 )
             ],
-            total: "35.35"
+            total: Decimal(string: "35.35")!
         )
 
         try await withApp(configure: configure) { app in
-            try await app.testing().test(.POST, "receipts/process", beforeRequest: { req in
-                // Encoding shouldn't fail here; make non-throwing for the closure signature
-                try? req.content.encode(newReceipt)
-            }, afterResponse: { res async throws in
-                #expect(res.status == .ok)
-                let stored = try res.content.decode(StoredReceiptResponse.self)
-                #expect(stored.id.isEmpty == false)
+            try await app.testing().test(.POST, "receipts/process", beforeRequest: { req1 in
+                try? req1.content.encode(newReceipt)
+            }, afterResponse: { res1 async throws in
+                #expect(res1.status == .ok)
+                let storedReceiptResponse = try res1.content.decode(StoredReceiptResponse.self)
+                #expect(storedReceiptResponse.id.isEmpty == false)
+
+
+                try await app.testing().test(.GET, "receipts/\(storedReceiptResponse.id)/points", afterResponse: { res2 async throws in
+                    #expect(res2.status == .ok)
+                    let pointsResponse = try res2.content.decode(GetPointsResponse.self)
+                    #expect(pointsResponse.points == 28)
+                })
             })
         }
     }
