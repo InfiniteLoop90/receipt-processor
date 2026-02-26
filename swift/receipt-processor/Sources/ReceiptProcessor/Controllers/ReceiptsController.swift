@@ -3,12 +3,12 @@ import Vapor
 struct ReceiptsController: RouteCollection {
 
     func boot(routes: any RoutesBuilder) throws {
-        let receipts = routes.grouped("receipts")
-
-        receipts.grouped("process").post(use: processReceipt)
-
-        receipts.group(":id") { receipt in
-            receipt.grouped("points").get(use: getReceiptPoints)
+        routes.group("receipts") { receipts in
+            receipts.grouped("process").post(use: processReceipt)
+            
+            receipts.group(":id") { receipt in
+                receipt.grouped("points").get(use: getReceiptPoints)
+            }
         }
     }
 
