@@ -39,23 +39,13 @@ struct Receipt: Content {
 
     // 25 points if the total is a multiple of 0.25.
     private func getTotalIsMultipleOfPoint25Points() -> Int {
-        // Check if total is a multiple of 0.25 without floating-point error by scaling to cents
-        // 0.25 dollars == 25 cents; multiply by 100 to work in integer cents
-        // Then check if cents % 25 == 0
-        var value = total
-        var scaled = Decimal()
-        NSDecimalMultiplyByPowerOf10(&scaled, &value, 2, .plain) // * 10^2 to convert dollars -> cents
-
-        // Now attempt to convert to an integer. If it can't be represented exactly, it's not a clean cent value.
-        // We round with .plain to the 0 scale to get an integral Decimal, then compare.
-        var rounded = Decimal()
-        var temp = scaled
-        NSDecimalRound(&rounded, &temp, 0, .plain)
-        guard rounded == scaled, let cents = NSDecimalNumber(decimal: rounded).intValue as Int? else {
+        let doubleValue = NSDecimalNumber(decimal: total).doubleValue
+        let divided = doubleValue / 0.25
+        if divided.rounded() == divided {
+            return 25
+        } else {
             return 0
         }
-
-        return (cents % 25 == 0) ? 25 : 0
     }
 
     // 5 points for every two items on the receipt.
@@ -74,20 +64,10 @@ struct Receipt: Content {
             let trimmed = item.shortDescription.trimmingCharacters(in: .whitespacesAndNewlines)
             guard trimmed.count % 3 == 0 else { continue }
 
-            // Compute 20% of the price using Decimal-safe math
-            var price = item.price
-            var twentyPercent = Decimal()
-            // Prepare a Decimal constant for 0.2 and pass its address
-            var decimalPointTwo = Decimal(string: "0.2")!
-            NSDecimalMultiply(&twentyPercent, &price, &decimalPointTwo, .plain)
-
-            // Round up to the nearest integer
-            var roundedUp = Decimal()
-            var temp = twentyPercent
-            NSDecimalRound(&roundedUp, &temp, 0, .up)
-
-            // Convert to Int and add to total
-            totalPoints += NSDecimalNumber(decimal: roundedUp).intValue
+            let priceDouble = NSDecimalNumber(decimal: item.price).doubleValue
+            // Multiply by 0.2 and round up to nearest integer
+            let pointsForItem = Int(ceil(priceDouble * 0.2))
+            totalPoints += pointsForItem
         }
         return totalPoints
     }
