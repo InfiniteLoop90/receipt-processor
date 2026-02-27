@@ -2,5 +2,5 @@ import Foundation
 import Vapor
 
 struct StoredReceiptResponse: Content {
-    let id: String
+    let id: String // A UUID
 }
