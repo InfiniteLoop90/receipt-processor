@@ -9,6 +9,6 @@
 <body>
   <h1>#(title)</h1>
   <p>Current timestamp: #(currentTimestamp)</p>
-    <p>Swift version: #(swiftVersion)</p>
+  <p>Swift version: #(swiftVersion)</p>
 </body>
 </html>

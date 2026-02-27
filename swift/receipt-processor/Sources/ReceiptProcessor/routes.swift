@@ -9,7 +9,6 @@ func routes(_ app: Application) throws {
         dateFormatter.timeStyle = .long
         let localTimeStr = dateFormatter.string(from: now)
 
-
         return try await req.view.render("index", [
             "title": "Receipt Processor Home Page (Swift + Vapor)",
             "currentTimestamp": localTimeStr,
