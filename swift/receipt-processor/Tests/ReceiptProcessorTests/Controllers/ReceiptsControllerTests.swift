@@ -2,8 +2,8 @@
 import VaporTesting
 import Testing
 
-@Suite("App Tests")
-struct ReceiptProcessorTests {
+@Suite("Receipt Controller Tests")
+struct ReceiptControllerTests {
     @Test("Test Hello World Route")
     func helloWorld() async throws {
         try await withApp(configure: configure) { app in
