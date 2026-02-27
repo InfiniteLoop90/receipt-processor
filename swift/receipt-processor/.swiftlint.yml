@@ -1,0 +1,35 @@
+# By default, SwiftLint uses a set of sensible default rules you can adjust. Find all the available rules
+# by running `swiftlint rules` or visiting https://realm.github.io/SwiftLint/rule-directory.html.
+
+# Case-sensitive paths to include during linting. Directory paths supplied on the
+# command line will be ignored. Wildcards are supported.
+included:
+  - Sources
+  - Tests
+
+# Rules turned on by default can be disabled.
+disabled_rules:
+  - line_length  # I don't care about long lines
+  - identifier_name  # I don't care if my variable names are less than 3 characters
+
+# Rules turned off by default can be enabled.
+opt_in_rules:
+  - closing_brace # No need for extra whitespace
+  - closure_spacing
+  - closure_end_indentation  # I like having the indentation line up
+  - comma_inheritance  # It'll make inheritance easier to read
+  - conditional_returns_on_newline  # I prefer it this way
+  - empty_count
+  - empty_string
+  - fallthrough  # No switch fallthroughs
+  - literal_expression_end_indentation  # I like having uniform indentation
+  - period_spacing  # No spacing after periods
+  - required_enum_case
+  - sorted_imports
+  - unused_parameter  # No unused parameters. It's a code smell.
+
+# Rules only run by `swiftlint analyze`. These are all opt-in.
+analyzer_rules:
+  - typesafe_array_init
+  - unused_declaration
+  - unused_import

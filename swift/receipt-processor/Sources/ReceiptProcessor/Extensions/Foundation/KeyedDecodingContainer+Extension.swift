@@ -8,7 +8,7 @@ extension KeyedDecodingContainer {
     /**
      Adding support for decoding String to Decimal
      */
-    func decode(_ type: Decimal.Type, forKey key: K) throws -> Decimal {
+    func decode(_: Decimal.Type, forKey key: K) throws -> Decimal {
         let stringValue = try decode(String.self, forKey: key)
         guard let decimalValue = Decimal(string: stringValue) else {
             let context = DecodingError.Context(

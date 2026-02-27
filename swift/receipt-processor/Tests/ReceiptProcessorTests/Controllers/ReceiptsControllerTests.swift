@@ -1,6 +1,6 @@
 @testable import ReceiptProcessor
-import VaporTesting
 import Testing
+import VaporTesting
 
 @Suite("Receipt Controller Tests")
 struct ReceiptControllerTests {
