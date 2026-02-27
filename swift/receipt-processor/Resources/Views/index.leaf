@@ -8,5 +8,6 @@
 
 <body>
   <h1>#(title)</h1>
+  <p>Current timestamp: #(currentTimestamp)</p>
 </body>
 </html>
