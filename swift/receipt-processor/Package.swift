@@ -12,7 +12,7 @@ let package = Package(
         // 🍃 An expressive, performant, and extensible templating language built for Swift.
         .package(url: "https://github.com/vapor/leaf.git", from: "4.3.0"),
         // 🔵 Non-blocking, event-driven networking for Swift. Used for custom executors
-        .package(url: "https://github.com/apple/swift-nio.git", from: "2.65.0"),
+        .package(url: "https://github.com/apple/swift-nio.git", from: "2.65.0")
     ],
     targets: [
         .executableTarget(
@@ -21,7 +21,7 @@ let package = Package(
                 .product(name: "Leaf", package: "leaf"),
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "NIOCore", package: "swift-nio"),
-                .product(name: "NIOPosix", package: "swift-nio"),
+                .product(name: "NIOPosix", package: "swift-nio")
             ],
             swiftSettings: swiftSettings
         ),
@@ -29,7 +29,7 @@ let package = Package(
             name: "ReceiptProcessorTests",
             dependencies: [
                 .target(name: "ReceiptProcessor"),
-                .product(name: "VaporTesting", package: "vapor"),
+                .product(name: "VaporTesting", package: "vapor")
             ],
             swiftSettings: swiftSettings
         )
@@ -37,5 +37,5 @@ let package = Package(
 )
 
 var swiftSettings: [SwiftSetting] { [
-    .enableUpcomingFeature("ExistentialAny"),
+    .enableUpcomingFeature("ExistentialAny")
 ] }
