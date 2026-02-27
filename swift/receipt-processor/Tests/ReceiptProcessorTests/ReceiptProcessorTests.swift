@@ -51,10 +51,11 @@ struct ReceiptProcessorTests {
             }, afterResponse: { res1 async throws in
                 #expect(res1.status == .ok)
                 let storedReceiptResponse = try res1.content.decode(StoredReceiptResponse.self)
-                #expect(storedReceiptResponse.id.isEmpty == false)
+                let storedReceiptResponceUuid = storedReceiptResponse.id
+                #expect(storedReceiptResponceUuid.isEmpty == false)
+                #expect(storedReceiptResponceUuid == storedReceiptResponceUuid.lowercased(), "The UUID should be all in lowercase")
 
-
-                try await app.testing().test(.GET, "receipts/\(storedReceiptResponse.id)/points", afterResponse: { res2 async throws in
+                try await app.testing().test(.GET, "receipts/\(storedReceiptResponceUuid)/points", afterResponse: { res2 async throws in
                     #expect(res2.status == .ok)
                     let pointsResponse = try res2.content.decode(GetPointsResponse.self)
                     #expect(pointsResponse.points == 28)
@@ -96,10 +97,11 @@ struct ReceiptProcessorTests {
             }, afterResponse: { res1 async throws in
                 #expect(res1.status == .ok)
                 let storedReceiptResponse = try res1.content.decode(StoredReceiptResponse.self)
-                #expect(storedReceiptResponse.id.isEmpty == false)
+                let storedReceiptResponceUuid = storedReceiptResponse.id
+                #expect(storedReceiptResponceUuid.isEmpty == false)
+                #expect(storedReceiptResponceUuid == storedReceiptResponceUuid.lowercased(), "The UUID should be all in lowercase")
 
-
-                try await app.testing().test(.GET, "receipts/\(storedReceiptResponse.id)/points", afterResponse: { res2 async throws in
+                try await app.testing().test(.GET, "receipts/\(storedReceiptResponceUuid)/points", afterResponse: { res2 async throws in
                     #expect(res2.status == .ok)
                     let pointsResponse = try res2.content.decode(GetPointsResponse.self)
                     #expect(pointsResponse.points == 109)
