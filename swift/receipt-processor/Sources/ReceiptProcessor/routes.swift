@@ -5,9 +5,5 @@ func routes(_ app: Application) throws {
         try await req.view.render("index", ["title": "Hello Vapor!"])
     }
 
-    app.get("hello") { _ async -> String in
-        "Hello, world!"
-    }
-
     try app.register(collection: ReceiptsController())
 }
