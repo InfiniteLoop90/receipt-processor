@@ -9,9 +9,12 @@ func routes(_ app: Application) throws {
         dateFormatter.timeStyle = .long
         let localTimeStr = dateFormatter.string(from: now)
 
+
         return try await req.view.render("index", [
             "title": "Receipt Processor Home Page (Swift + Vapor)",
-            "currentTimestamp": localTimeStr
+            "currentTimestamp": localTimeStr,
+            // Technically this only displays the right major and minor version. The patch version always displays 0.
+            "swiftVersion": _SwiftStdlibVersion.current.description
         ])
     }
 
