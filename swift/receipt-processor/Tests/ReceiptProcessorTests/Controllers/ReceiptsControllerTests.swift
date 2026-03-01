@@ -76,10 +76,10 @@ struct ReceiptControllerTests {
                 try? req1.content.encode(receipt)
             }, afterResponse: { res1 async throws in
                 #expect(res1.status == .ok)
+                #expect(res1.body.string == res1.body.string.lowercased(), "The response body (notably the UUID in particular) should be all in lowercase")
+
                 let storedReceiptResponse = try res1.content.decode(StoredReceiptResponse.self)
                 let storedReceiptResponceUuid = storedReceiptResponse.id
-                #expect(storedReceiptResponceUuid.isEmpty == false)
-                #expect(storedReceiptResponceUuid == storedReceiptResponceUuid.lowercased(), "The UUID should be all in lowercase")
 
                 try await app.testing().test(.GET, "receipts/\(storedReceiptResponceUuid)/points", afterResponse: { res2 async throws in
                     #expect(res2.status == .ok)
