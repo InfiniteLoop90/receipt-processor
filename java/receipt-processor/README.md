@@ -10,8 +10,8 @@ Dockerfile creation.
 
 1. Have [Docker](https://www.docker.com/) installed.
 2. Clone this repo.
-3. Run `docker build --tag clayton/receipt-processor .` to build the image.
-4. Run `docker run --publish 8080:8080 clayton/receipt-processor:latest` to run the image.
+3. Run `docker build --tag clayton/receipt-processor-java .` to build the image.
+4. Run `docker run --publish 8080:8080 clayton/receipt-processor-java:latest` to run the image.
 5. Go to Postman and try to interact with it, e.g.:
    * `POST` to `http://localhost:8080/receipts/process` with a body like:
       ```json
