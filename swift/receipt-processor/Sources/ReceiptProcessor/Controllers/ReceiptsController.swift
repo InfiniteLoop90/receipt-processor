@@ -12,6 +12,7 @@ struct ReceiptsController: RouteCollection {
         }
     }
 
+    @Sendable
     func processReceipt(req: Request) async throws -> StoredReceiptResponse {
         let receipt = try req.content.decode(Receipt.self)
         let newUuid = UUID()
@@ -19,6 +20,7 @@ struct ReceiptsController: RouteCollection {
         return StoredReceiptResponse(id: newUuid)
     }
 
+    @Sendable
     func getReceiptPoints(req: Request) async throws -> GetPointsResponse {
         guard let idParam = req.parameters.get("id"), let id = UUID(uuidString: idParam) else {
             throw Abort(.badRequest, reason: "Missing or invalid receipt ID")
