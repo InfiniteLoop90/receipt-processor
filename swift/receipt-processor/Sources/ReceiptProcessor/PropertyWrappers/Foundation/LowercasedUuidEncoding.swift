@@ -6,7 +6,7 @@ import Foundation
  (when used) will enode it in all lowercase.
  I got this idea from https://www.reddit.com/r/swift/comments/1ir6a1a/comment/md5yccz
  */
-@propertyWrapper struct Lowercased: Codable, Equatable, Hashable {
+@propertyWrapper struct LowercasedEncoding: Codable, Equatable, Hashable {
     let wrappedValue: UUID
 
     init(wrappedValue: UUID) {
