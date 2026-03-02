@@ -81,7 +81,7 @@ struct ReceiptControllerTests {
                 let storedReceiptResponse = try res1.content.decode(StoredReceiptResponse.self)
                 let storedReceiptResponceUuid = storedReceiptResponse.id
 
-                try await app.testing().test(.GET, "receipts/\(storedReceiptResponceUuid)/points", afterResponse: { res2 async throws in
+                try await app.testing().test(.GET, "receipts/\(storedReceiptResponceUuid.uuidString.lowercased())/points", afterResponse: { res2 async throws in
                     #expect(res2.status == .ok)
                     let pointsResponse = try res2.content.decode(GetPointsResponse.self)
                     #expect(pointsResponse.points == expectedPoints)
