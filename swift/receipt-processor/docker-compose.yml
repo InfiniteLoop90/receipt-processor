@@ -18,7 +18,7 @@ x-shared_environment: &shared_environment
   
 services:
   app:
-    image: receipt-processor:latest
+    image: clayton/receipt-processor-swift:latest
     build:
       context: .
     environment:
