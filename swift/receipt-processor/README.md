@@ -33,7 +33,7 @@ docker build --tag clayton/receipt-processor-swift .
 To run the Docker image, run the following command:
 
 ```bash
-docker run --publish 8080:8080 clayton/receipt-processor-swift:latest
+docker run --publish 8080:8080 --rm clayton/receipt-processor-swift:latest
 ```
 
 ### Testing Manually with Postman

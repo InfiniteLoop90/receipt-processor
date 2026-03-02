@@ -27,7 +27,7 @@ mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=8080"
 1. Have [Docker](https://www.docker.com/) installed.
 2. Clone this repo and navigate to this directory.
 3. Run `docker build --tag clayton/receipt-processor-java .` to build the image.
-4. Run `docker run --publish 8080:8080 clayton/receipt-processor-java:latest` to run the image.
+4. Run `docker run --publish 8080:8080 --rm clayton/receipt-processor-java:latest` to run the image.
 
 ### Testing Manually with Postman
 
