@@ -1,10 +1,10 @@
-// swift-tools-version:6.0
+// swift-tools-version:6.2
 import PackageDescription
 
 let package = Package(
     name: "ReceiptProcessor",
     platforms: [
-       .macOS(.v13)
+        .macOS(.v26)
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
@@ -33,7 +33,8 @@ let package = Package(
             ],
             swiftSettings: swiftSettings
         )
-    ]
+    ],
+    swiftLanguageModes: [.v6]
 )
 
 var swiftSettings: [SwiftSetting] { [
