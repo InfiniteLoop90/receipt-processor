@@ -16,6 +16,7 @@ struct ReceiptsController: RouteCollection {
     func processReceipt(req: Request) async throws -> StoredReceiptResponse {
         let receipt = try req.content.decode(Receipt.self)
         let newUuid = UUID()
+
         req.application.receiptStore?.receipts.updateValue(receipt, forKey: newUuid)
         return StoredReceiptResponse(id: newUuid)
     }

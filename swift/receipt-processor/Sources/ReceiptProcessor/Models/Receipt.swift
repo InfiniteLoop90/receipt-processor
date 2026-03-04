@@ -94,11 +94,8 @@ struct Receipt: Content {
     // 10 points if the time of purchase is after 2:00pm and before 4:00pm.
     private func getTimeOfPurchaseAfterTwoPmAndBeforeFourPmPoints() -> Int {
         let formatter = DateFormatter()
-        // "HH" is 24-hour format (00-23), "mm" is minutes
-        formatter.dateFormat = "HH:mm"
-
-        // Use POSIX locale to ensure parsing works regardless of user settings
         formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "HH:mm"
 
         guard let purchaseDateVal = formatter.date(from: purchaseTime) else {
             return 0 // Return 0 points if time string is invalid
